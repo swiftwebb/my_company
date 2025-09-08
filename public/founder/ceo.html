@@ -35,31 +35,36 @@
 
         <title>Opeyemi Idogun | Freelance Web & App Developer</title>
     </head>
-    <body>
-        <style>
-            .toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #4caf50; /* green for success */
-  color: white;
-  padding: 15px 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  z-index: 9999;
-  pointer-events: none;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
+    <style>
+        /* Toast container */
+        #toast {
+          position: fixed;
+          bottom: 2rem;
+          right: 2rem;
+          min-width: 250px;
+          background: #333;
+          color: #fff;
+          padding: 1rem 1.5rem;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+          opacity: 0;
+          pointer-events: none;
+          transition: all 0.3s ease;
+          z-index: 1000;
+        }
+        
+        #toast.show {
+          opacity: 1;
+          pointer-events: auto;
+        }
+        #toast.success {
+          background-color: #16a34a; /* green */
+        }
+        #toast.error {
+          background-color: #dc2626; /* red */
+        }
         </style>
+    <body>
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
@@ -540,8 +545,10 @@
                             <button type="submit" class="contact__button">
                                 Send <i class="ri-arrow-right-up-line"></i>
                             </button>
-                            <div id="result" class="toast"></div>
+                            <div id="result"></div>
                         </form>
+
+                        <div id="toast"></div>
                     </div>
                 </div>
             </section>
@@ -603,49 +610,49 @@
         <script src="assets/js/main.js"></script>
         <script>
             const form = document.getElementById('form');
-            const result = document.getElementById('result');
+            const toastEl = document.getElementById('toast');
             
-            function showToast(message, success = true) {
-                result.innerText = message;
-                result.style.backgroundColor = success ? '#4caf50' : '#f44336'; // green or red
-                result.classList.add('show');
-            
-                setTimeout(() => {
-                    result.classList.remove('show');
-                }, 3000); // hide after 3 seconds
+            function showToast(message, type = 'success') {
+              toastEl.textContent = message;
+              toastEl.className = `show ${type}`;
+              setTimeout(() => {
+                toastEl.className = '';
+              }, 3000);
             }
             
             form.addEventListener('submit', function(e) {
-                e.preventDefault();
+              e.preventDefault();
+              
+              const formData = new FormData(form);
+              const object = Object.fromEntries(formData);
+              const json = JSON.stringify(object);
             
-                const formData = new FormData(form);
-                const object = Object.fromEntries(formData);
-                const json = JSON.stringify(object);
+              showToast("Please wait...", "success");
             
-                showToast("Please wait...", true);
-            
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: json
-                })
-                .then(async (response) => {
-                    let json = await response.json();
-                    if (response.status === 200) {
-                        showToast(json.message, true);
-                    } else {
-                        showToast(json.message, false);
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                    showToast("Something went wrong!", false);
-                })
-                .finally(() => {
-                    form.reset();
-                });
+              fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: json
+              })
+              .then(async (response) => {
+                const data = await response.json();
+                if (data.success || response.status === 200) {
+                  showToast("Thank you for your submission!", "success");
+                } else {
+                  showToast(data.message || "Something went wrong!", "error");
+                }
+              })
+              .catch((error) => {
+                console.error(error);
+                showToast("Something went wrong!", "error");
+              })
+              .finally(() => {
+                form.reset();
+              });
             });
-            
             </script>
     </body>
 </html>
