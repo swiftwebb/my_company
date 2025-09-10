@@ -64,10 +64,10 @@ const Footer = ({theme}) => {
         className='pb-6 text-sm text-gray-500 flex justify-center sm:justify-between gap-4 flex-wrap'>
           <p>Copyright 2025 © Baxting - All Right Reserved.</p>
           <div className='flex items-center justify-between gap-4'>
-            <img src= {assets.facebook_icon} alt="" />
-            <img src= {assets.twitter_icon} alt="" />
-            <img src= {assets.instagram_icon} alt="" />
-            <img src= {assets.linkedin_icon} alt="" />
+            <a href="https://www.facebook.com/share/1Avd19zDrg/?mibextid=wwXIfr"><img src= {assets.facebook_icon} alt="" /></a>
+            <a href="https://x.com/baxting_?s=21&t=UfL2TSefBYcyB3RM3alREQ"><img src= {assets.twitter_icon} alt="" /></a>
+            <a href="https://www.instagram.com/baxting2025?igsh=MWdjNWJ2YzJidWk3dQ%3D%3D&utm_source=qr"><img src= {assets.instagram_icon} alt="" /></a>
+            {/* <a href=""><img src= {assets.linkedin_icon} alt="" /></a> */}
           </div>
 
         </motion.div>
