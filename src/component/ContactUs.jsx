@@ -51,6 +51,20 @@ const ContactUs = () => {
     id='contact-us' className='flex flex-col items-center gap-7 px-4 sm:px-12 lg:px-24 
     xl:px-40 pt-30 text-gray-800 dark:text-white'>
     <Title title="Reach out to us" desc="From strategy to execution, we craft digital solutions that move your business forward." />
+    
+    <motion.a 
+      href="https://website.baxting.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      initial={{opacity: 0, scale: 0.9}}
+      animate={{opacity: 1, scale: 1}}
+      transition={{duration: 0.5, delay: 0.2}}
+      className='bg-primary text-white text-lg font-semibold px-12 py-4 rounded-full 
+      cursor-pointer hover:scale-105 transition-all shadow-lg hover:shadow-xl'
+    >
+      Create free Website
+    </motion.a>
+    
     <motion.form 
      initial={{opacity: 0, y: 30}}
      animate={{opacity: 1, y: 0}}

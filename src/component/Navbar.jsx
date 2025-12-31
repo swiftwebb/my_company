@@ -27,6 +27,7 @@ const Navbar = ({theme, settheme}) => {
             <a onClick={()=> setSidebarOpen(false)} href="#services" className='sm:hover:border-b'>Services</a>
             <a onClick={()=> setSidebarOpen(false)} href="#our-work" className='sm:hover:border-b'>Our Work</a>
             <a onClick={()=> setSidebarOpen(false)} href="#contact-us" className='sm:hover:border-b'>Contact us</a>
+            <a onClick={()=> setSidebarOpen(false)} href="https://website.baxting.com" target="_blank" className='sm:hover:border-b'>Create website</a>
         </div>
         <div className='flex items-enter gaps-2 sm:gap-4'>
 
@@ -35,8 +36,8 @@ const Navbar = ({theme, settheme}) => {
             <img src={theme === 'dark' ? assets.menu_icon_dark : assets.menu_icon}
              alt="" onClick={()=> setSidebarOpen(true)} className='w-8 sm:hidden'/>
             
-        <a href="#contact-us" className='text-sm max-sm:hidden flex items-center gap-2 bg-primary 
-        text-white px-6 py-2 rounded-full cursor-pointer hover:scale-103 transtion-all'>Contact <img src={assets.arrow_icon} width={14} alt=""/></a>
+        <a href="https://website.baxting.com" target="_blank" className='text-sm max-sm:hidden flex items-center gap-2 bg-primary 
+        text-white px-6 py-2 rounded-full cursor-pointer hover:scale-103 transtion-all'>Create website <img src={assets.arrow_icon} width={14} alt=""/></a>
         </div>
     </motion.div>
   )
